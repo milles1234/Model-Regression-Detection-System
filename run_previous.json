@@ -1,0 +1,42 @@
+[
+  {
+    "id": "TC-001",
+    "input": "Hi, I noticed I was charged twice for my sub this month. My bank app shows two $29.99 charges on Oct 12. Can you refund the extra one? Order #4492A.",
+    "expected_category": "billing",
+    "expected_summary": "Customer reports a duplicate $29.99 subscription charge on Oct 12 and requests a refund for Order #4492A.",
+    "difficulty": "easy",
+    "actual": null,
+    "error": "[attempt 3/3] ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+    "category_score": 0,
+    "summary_score": 0,
+    "elapsed_seconds": 18.600792500001262,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "total_tokens": 0
+  },
+  {
+    "id": "TC-002",
+    "input": "Hello, my invoice for last month hasn't arrived in my email. I need it for expense reporting by Friday. My account email is john.doe@company.com. Please resend.",
+    "expected_category": "billing",
+    "expected_summary": "Customer requests a resent invoice for last month for expense reporting purposes.",
+    "difficulty": "easy",
+    "actual": {
+      "result": {
+        "category": "billing",
+        "summary": "The customer requests their invoice from last month to be resent to john.doe@company.com for expense reporting."
+      },
+      "usage": {
+        "input_tokens": 238,
+        "output_tokens": 34,
+        "total_tokens": 272
+      }
+    },
+    "error": null,
+    "category_score": 1,
+    "summary_score": 5,
+    "elapsed_seconds": 7.85330969998904,
+    "input_tokens": 238,
+    "output_tokens": 34,
+    "total_tokens": 272
+  }
+]

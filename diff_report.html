@@ -1,0 +1,98 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Run Comparison Report</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .card { border: 1px solid #ccc; border-radius: 5px; padding: 15px; margin-bottom: 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+            h1, h2, h3 { color: #333; margin-top: 0; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+            th, td { border: 1px solid #ccc; padding: 10px; text-align: left; vertical-align: top; }
+            th { background-color: #f4f4f4; }
+            .text-success { color: green; }
+            .text-danger { color: red; }
+            .scorecard { display: flex; gap: 20px; }
+            .score-item { font-size: 1.2em; }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <h1>Eval Run Comparison Report</h1>
+        
+        <div class="card">
+            <h2>Run Metadata</h2>
+            <ul>
+                <li><strong>Timestamp:</strong> N/A</li>
+                <li><strong>Prompt Version:</strong> N/A</li>
+                <li><strong>Model:</strong> N/A</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>Summary Scorecard</h2>
+            <div class="scorecard">
+                <div class="score-item">
+                    <strong>Previous Accuracy:</strong> 100.0%
+                </div>
+                <div class="score-item">
+                    <strong>Current Accuracy:</strong> 50.0%
+                </div>
+                <div class="score-item">
+                    <strong>Delta:</strong> <span class="text-danger">-50.0%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Trend Chart (Last 0 Runs)</h2>
+            <canvas id="trendChart" width="400" height="100"></canvas>
+            <script>
+                var ctx = document.getElementById('trendChart').getContext('2d');
+                var trendChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Accuracy (%)',
+                            data: [],
+                            borderColor: 'blue',
+                            fill: false,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: { beginAtZero: true, max: 100 }
+                        }
+                    }
+                });
+            </script>
+        </div>
+        
+        <div class="card">
+            <h2>Regressions (1)</h2>
+            
+            <table>
+                <tr>
+                    <th>Test ID</th>
+                    <th>Expected</th>
+                    <th>Old Output (Passed)</th>
+                    <th>New Output (Failed)</th>
+                </tr>
+                
+        <tr>
+            <td>TC-001</td>
+            <td><strong>Category:</strong> billing<br><strong>Summary:</strong> Customer reports a duplicate $29.99 subscription charge on Oct 12 and requests a refund for Order #4492A.</td>
+            <td class="text-success"><strong>Category:</strong> billing<br><strong>Summary:</strong> The customer is requesting a refund for a duplicate $29.99 subscription charge on order #4492A.</td>
+            <td class="text-danger"><strong>Category:</strong> N/A<br><strong>Summary:</strong> N/A</td>
+        </tr>
+        
+            </table>
+            
+        </div>
+        
+    </body>
+    </html>
+    

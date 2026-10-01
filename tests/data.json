@@ -1,0 +1,570 @@
+{
+    "dataset_version": "1.0.0",
+    "metadata": {
+        "created_at": "2026-09-26",
+        "description": "Human-verified ground truth test cases for customer email classification and summarization. Includes deliberate edge cases (ambiguous, short, typos, mixed language, sarcastic).",
+        "allowed_categories": [
+            "billing",
+            "technical",
+            "account",
+            "general"
+        ],
+        "difficulty_levels": [
+            "easy",
+            "medium",
+            "hard"
+        ]
+    },
+    "test_cases": [
+        {
+            "id": "TC-001",
+            "input": "Hi, I noticed I was charged twice for my sub this month. My bank app shows two $29.99 charges on Oct 12. Can you refund the extra one? Order #4492A.",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer reports a duplicate $29.99 subscription charge on Oct 12 and requests a refund for Order #4492A."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Standard duplicate charge request. Clear intent, explicit keywords, and easy to classify."
+        },
+        {
+            "id": "TC-002",
+            "input": "Hello, my invoice for last month hasn't arrived in my email. I need it for expense reporting by Friday. My account email is john.doe@company.com. Please resend.",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer requests a resent invoice for last month for expense reporting purposes."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Straightforward billing document request with clear context and deadline."
+        },
+        {
+            "id": "TC-003",
+            "input": "Why did my payment fail? I have enough funds in my account. Now my dashboard is locked. Fix this immediately.",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer’s payment failed despite sufficient funds, resulting in a locked account; requests immediate resolution."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Touches on account access ('locked'), but the root cause and primary subject is a failed payment."
+        },
+        {
+            "id": "TC-004",
+            "input": "I updated my credit card info in the portal yesterday, but I still got a notification this morning that my payment method is expired. Can you check if the update actually went through?",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer updated credit card info but still received an expired payment method notification; requests verification."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Tests the model's ability to distinguish between a technical UI bug and a billing data synchronization issue."
+        },
+        {
+            "id": "TC-005",
+            "input": "Is there a way to get a discount for paying annually instead of monthly? I'm currently on the monthly plan but want to switch if it saves me some money.",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer inquires about annual payment discounts and the process for switching from a monthly plan."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Clear pricing and payment structure inquiry."
+        },
+        {
+            "id": "TC-006",
+            "input": "Stop charging me.",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer demands to stop future charges."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Extremely short and ambiguous. Could imply account cancellation or a refund dispute. Anchored to 'billing' due to the explicit keyword 'charging'."
+        },
+        {
+            "id": "TC-007",
+            "input": "The export to CSV button is completely broken. Every time I click it, the page just spins and nothing downloads. I'm using Chrome on Windows 11.",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer reports the CSV export feature is unresponsive and fails to download on Chrome (Windows 11)."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Classic bug report with clear steps, symptoms, and environment details."
+        },
+        {
+            "id": "TC-008",
+            "input": "Login broken.",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer reports an inability to log in."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Extremely short input. Tests if the model can correctly map a fragmented, two-word complaint to the technical category."
+        },
+        {
+            "id": "TC-009",
+            "input": "The mobile app crashes whenever I try to open the 'Reports' tab. This started right after the latest update yesterday. I'm on an iPhone 13, iOS 17.",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer reports mobile app crashing when accessing the 'Reports' tab after the latest update (iPhone 13, iOS 17)."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Well-structured technical bug report with versioning and device context."
+        },
+        {
+            "id": "TC-010",
+            "input": "My dashboard is showing the wrong timezone. I set it to EST in my preferences, but all the timestamps are still showing in PST. How do I fix this?",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer’s dashboard displays incorrect timestamps (PST instead of configured EST); requests a fix."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Configuration bug. Tests distinction between user error (account settings) and system failure (technical)."
+        },
+        {
+            "id": "TC-011",
+            "input": "There's a bug in the search bar. If I type a word with an apostrophe, like \"don't\", it throws a 500 error page.",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer reports a 500 server error in the search bar when querying terms containing an apostrophe."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Explicit mention of 'bug' and '500 error' makes this a straightforward technical classification."
+        },
+        {
+            "id": "TC-012",
+            "input": "I cant loging, pasword reset not werking plz halp asap",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer cannot log in and reports the password reset function is not working."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Deliberate typos and poor grammar. Tests the model's robustness to noisy, low-quality text input."
+        },
+        {
+            "id": "TC-013",
+            "input": "It would be really great if you could add a dark mode to the web app. My eyes hurt when I work late at night.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests the addition of a dark mode feature to the web application."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Clear feature request, which falls under general inquiries rather than a broken technical issue."
+        },
+        {
+            "id": "TC-014",
+            "input": "Can we get an integration with Slack? It would save our team so much time if notifications were sent directly to our #alerts channel.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests a Slack integration to send direct notifications to a specific channel."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Standard product enhancement/feature request."
+        },
+        {
+            "id": "TC-015",
+            "input": "I love the product, but please add the ability to export reports in PDF format, not just CSV. Our clients require PDFs for compliance.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests PDF export functionality for reports to meet client compliance requirements."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Feature request with clear business justification."
+        },
+        {
+            "id": "TC-016",
+            "input": "Is there a way to add custom fields to the user profile? We need to track 'Department' and 'Employee ID' for our internal team.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests the ability to add custom fields ('Department', 'Employee ID') to user profiles."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Borders on account management, but is fundamentally a request for a new product capability (custom fields)."
+        },
+        {
+            "id": "TC-017",
+            "input": "A bulk edit feature would be amazing. Right now I have to update items one by one, which takes forever when I have 100+ rows.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests a bulk edit feature to improve efficiency over single-item updates."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Clear usability/feature request."
+        },
+        {
+            "id": "TC-018",
+            "input": "I need to change the email address associated with my account from old.email@gmail.com to new.email@gmail.com. How do I do this securely?",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer requests to securely update their account email address to a new Gmail address."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Explicit account profile modification request."
+        },
+        {
+            "id": "TC-019",
+            "input": "Please delete my account and all my data. I am no longer using the service. Confirm via email when this is done.",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer requests permanent account deletion and complete data removal, with email confirmation."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Clear GDPR/data deletion request, firmly in the account category."
+        },
+        {
+            "id": "TC-020",
+            "input": "I got married and need to update my last name on the billing profile. Let me know what documentation you need from me.",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer needs to update their last name on the billing profile due to marriage and asks for required documentation."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Mentions 'billing profile', but the core action is a personal identity/account detail update."
+        },
+        {
+            "id": "TC-021",
+            "input": "Can you merge these two accounts? I accidentally created a new one instead of logging into my old one. Emails: a@a.com and b@b.com.",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer requests to merge two accidentally created accounts under different email addresses."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Requires understanding that 'merge' is an account administration task, not a technical bug."
+        },
+        {
+            "id": "TC-022",
+            "input": "I need to add my colleague, sarah@company.com, as an admin to our team account. Can you grant her permissions or tell me how?",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer requests admin permissions to be granted to a colleague on their team account."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Standard user role/permission management request."
+        },
+        {
+            "id": "TC-023",
+            "input": "Plz change my emial to new@one.com asap thx",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer requests an urgent email address change for their account."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Tests handling of casual, typo-ridden text while correctly identifying the core account update intent."
+        },
+        {
+            "id": "TC-024",
+            "input": "I bought the premium plan by mistake yesterday. I haven't used any of the features yet. Can I get a full refund?",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer requests a full refund for a premium plan purchased yesterday, citing accidental purchase and zero usage."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Clear refund request with qualifying conditions (timeframe, usage)."
+        },
+        {
+            "id": "TC-025",
+            "input": "It's been 10 days and I still haven't received my refund for the cancelled order. Can you check the status on your end?",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer inquires about the delayed status of a refund for a cancelled order (10 days elapsed)."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Follow-up on a financial transaction. Tests distinction between 'account cancellation' and 'billing refund status'."
+        },
+        {
+            "id": "TC-026",
+            "input": "I don't like the software. It doesn't do what I expected based on the website. Is it possible to get a refund even though it's been 20 days?",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer requests a refund after 20 days, stating the software does not meet their expectations."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Edge case testing policy boundaries. The user is unhappy (general complaint), but the explicit ask is a financial refund (billing)."
+        },
+        {
+            "id": "TC-027",
+            "input": "Thanks for the 'free' trial that magically charged my card $99. Great business model.",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer sarcastically complains about an unexpected $99 charge following a free trial."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Sarcastic tone. Tests if the model can look past the sarcasm to identify the core issue: an unexpected charge."
+        },
+        {
+            "id": "TC-028",
+            "input": "My tracking number hasn't updated in 5 days. It's been stuck in 'Processing'. Where is my package?",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer reports tracking status stuck on 'Processing' for 5 days and requests a package location update."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Logistics inquiry. Falls under general support as it is not a software bug, account change, or direct billing dispute."
+        },
+        {
+            "id": "TC-029",
+            "input": "Can I change the delivery address for Order #7732? I accidentally put my old address. It needs to go to 123 New St, NY, 10001.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests a delivery address change for Order #7732 to a new address before shipment."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Logistics request. Could be confused with 'account' address change, but specifies a specific order delivery."
+        },
+        {
+            "id": "TC-030",
+            "input": "Tracking says 'Delivered' since yesterday but there's nothing on my porch. I already asked my neighbors and no one has seen it. What do I do?",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer reports package marked as 'Delivered' but is missing from their porch and neighbors' possession."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Standard missing package inquiry requiring general support intervention."
+        },
+        {
+            "id": "TC-031",
+            "input": "Do you ship internationally to Australia? I couldn't select my country at checkout, it wasn't in the dropdown.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer inquires about international shipping availability to Australia after failing to select it at checkout."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Pre-sales general inquiry."
+        },
+        {
+            "id": "TC-032",
+            "input": "I need this to arrive by Friday for a presentation. Is expedited shipping still an option for my order, or is it too late?",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests expedited shipping for an order to ensure arrival by Friday for a presentation."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Time-sensitive logistics inquiry."
+        },
+        {
+            "id": "TC-033",
+            "input": "Does the Pro plan include API access, or is that only for the Enterprise tier?",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer inquires whether API access is included in the Pro plan or restricted to the Enterprise tier."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Pre-sales product capability inquiry."
+        },
+        {
+            "id": "TC-034",
+            "input": "What are the exact dimensions and weight of the physical device? I need to know if it will fit in my standard carrying case.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests the dimensions and weight of the physical device to verify carrying case compatibility."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Factual product specification inquiry."
+        },
+        {
+            "id": "TC-035",
+            "input": "Is this product compatible with Windows 7? I know it's old, but that's what our office machines still use.",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer inquires about product compatibility with legacy Windows 7 operating systems."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Compatibility question. Categorized as technical because it pertains to system requirements and software environment."
+        },
+        {
+            "id": "TC-036",
+            "input": "Are there any upcoming sales or Black Friday discounts I should wait for before purchasing the annual plan?",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer inquires about upcoming sales or Black Friday discounts before making a purchase."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Pricing and promotional inquiry."
+        },
+        {
+            "id": "TC-037",
+            "input": "Can you explain the difference between the 'Starter' and 'Growth' packages? The pricing page is a bit unclear on the limits.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer requests clarification on the feature limits and differences between the 'Starter' and 'Growth' packages."
+            },
+            "expected_difficulty": "easy",
+            "notes": "General product information request."
+        },
+        {
+            "id": "TC-038",
+            "input": "This is literally the 3rd time I'm emailing about this exact same issue and it's still not fixed. I need to speak to a manager now.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer demands to speak with a manager after three unresolved support contacts regarding the same issue."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Escalation request. Lacks specific technical or billing details, making 'general' the only appropriate routing bucket for triage."
+        },
+        {
+            "id": "TC-039",
+            "input": "Your customer service is terrible. I've been on hold for 45 minutes. This is completely unacceptable.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer complains about unacceptable 45-minute hold times and poor customer service."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Pure service complaint. No actionable product, billing, or account request is made."
+        },
+        {
+            "id": "TC-040",
+            "input": "I was promised a callback yesterday at 2 PM. No one called. I am very disappointed with the lack of follow-through.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer expresses disappointment over a missed promised callback scheduled for the previous day at 2 PM."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Process/support workflow complaint, routed to general."
+        },
+        {
+            "id": "TC-041",
+            "input": "Just delete my account, I'm tired of being charged every month for nothing.",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer requests immediate account deletion, expressing frustration over recurring charges."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Ambiguous edge case. Mentions billing ('charged'), but the explicit, actionable request is account deletion."
+        },
+        {
+            "id": "TC-042",
+            "input": "I cancelled my subscription last week and got a confirmation email, but I was still charged today. Please reverse this charge.",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer reports being charged after receiving a cancellation confirmation and requests a charge reversal."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Ambiguous edge case. Involves cancellation (account), but the primary actionable request is reversing a financial charge (billing)."
+        },
+        {
+            "id": "TC-043",
+            "input": "Instead of fully cancelling, is there a way to pause my account for 2 months while I'm on maternity leave?",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer inquires about pausing their account for two months due to maternity leave instead of full cancellation."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Account status modification request."
+        },
+        {
+            "id": "TC-044",
+            "input": "How do I import my existing data from a CSV file? The documentation is a little confusing and I keep getting a formatting error.",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer requests assistance with CSV data import due to confusing documentation and formatting errors."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Onboarding issue, but specifically cites a 'formatting error', pushing it into technical troubleshooting."
+        },
+        {
+            "id": "TC-045",
+            "input": "Hey, the invite link you sent to my coworker expired before she could click it. Can you resend a new one? Her email is j.smith@corp.com",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer requests a new team invitation link for a coworker after the previous one expired."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Standard team management/account administration task."
+        },
+        {
+            "id": "TC-046",
+            "input": "We need help setting up SSO/SAML for our organization. Do you have a dedicated engineer who can walk us through the config?",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer requests dedicated engineering assistance to configure SSO/SAML for their organization."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Advanced technical request. Requires routing to a specialized technical tier, not general support."
+        },
+        {
+            "id": "TC-047",
+            "input": "Where can I find my API keys? I looked in the settings menu but couldn't figure out which tab they are under.",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer needs guidance on locating their API keys within the account settings menu."
+            },
+            "expected_difficulty": "easy",
+            "notes": "Navigational help for a technical feature (API keys)."
+        },
+        {
+            "id": "TC-048",
+            "input": "Hola, necesito cancel my subscription immediately. It is too caro and I don't use it. Gracias.",
+            "expected_output": {
+                "category": "account",
+                "summary": "Customer requests immediate subscription cancellation, citing high cost and lack of usage."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Mixed language (Spanglish) edge case. Tests the model's ability to identify the primary intent (cancellation = account) despite code-switching and billing-related words ('caro')."
+        },
+        {
+            "id": "TC-049",
+            "input": "Oh wow, another 'brief' outage. Truly worth the premium price. When will this actually be fixed?",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer sarcastically complains about a service outage and demands an estimated time for resolution."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Sarcastic edge case. The model must ignore the tone and correctly identify the core issue: a service outage (technical)."
+        },
+        {
+            "id": "TC-050",
+            "input": "The new UI is so confusing, I can't find anything. Is it broken or just redesigned?",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer expresses confusion over the new UI, asking if it is a technical bug or a deliberate redesign."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Ambiguous edge case. Could be technical (broken) or general (usability feedback). Lacks specific error details, defaulting to general inquiry."
+        },
+        {
+            "id": "TC-051",
+            "input": "Bonjour, my dashboard is not loading, c'est vraiment frustrant. Can someone help?",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer reports that their dashboard is failing to load."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Mixed language (Franglais) edge case. Core issue is a loading failure, which is a technical problem."
+        },
+        {
+            "id": "TC-052",
+            "input": "refund",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer is requesting a refund."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Extremely short, single-word input. Tests if the model correctly defaults to billing for transactional keywords without additional context."
+        },
+        {
+            "id": "TC-053",
+            "input": "My password is Password123 and it still says invalid. Make it work.",
+            "expected_output": {
+                "category": "technical",
+                "summary": "Customer reports login failure despite entering a password, requesting a fix."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Tests handling of user error/security bad practices alongside a technical login complaint. The core request is still to fix a login issue."
+        },
+        {
+            "id": "TC-054",
+            "input": "I want to speak to a human. Your bot is useless.",
+            "expected_output": {
+                "category": "general",
+                "summary": "Customer is frustrated with automated support and requests to speak with a human agent."
+            },
+            "expected_difficulty": "medium",
+            "notes": "Vague routing request. Doesn't state the underlying product issue, testing fallback to general/escalation routing."
+        },
+        {
+            "id": "TC-055",
+            "input": "Can I get my money back? The software sucks.",
+            "expected_output": {
+                "category": "billing",
+                "summary": "Customer requests a refund due to dissatisfaction with the software."
+            },
+            "expected_difficulty": "hard",
+            "notes": "Ambiguous between a general complaint and a billing refund. The phrase 'money back' strongly anchors the actionable intent to billing."
+        }
+    ]
+}
